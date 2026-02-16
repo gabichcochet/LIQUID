@@ -281,7 +281,7 @@ if ($tab === 'users') {
     <header>
         <h1>🛒 LIQUID - Administration</h1>
         <nav>
-            <a href="/">Accueil</a>
+            <a href="/php_exam/index.php">Accueil</a>
             <a href="account.php">Mon Compte</a>
             <a href="logout.php">Déconnexion</a>
         </nav>

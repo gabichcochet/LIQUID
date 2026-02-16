@@ -120,7 +120,7 @@ require_once 'includes/session.php';
     <header>
         <h1>🛒 LIQUID E-Commerce</h1>
         <nav>
-            <a href="/php_exam/">Accueil</a>
+            <a href="/php_exam/index.php">Accueil</a>
             <?php if (isLoggedIn()): ?>
                 <a href="/php_exam/pages/sell.php">Vendre</a>
                 <a href="/php_exam/pages/cart.php">Panier</a>

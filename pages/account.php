@@ -373,7 +373,7 @@ if ($is_own_account) {
     <header>
         <h1>🛒 LIQUID</h1>
         <nav>
-            <a href="/">Accueil</a>
+            <a href="/php_exam/index.php">Accueil</a>
             <?php if (isLoggedIn()): ?>
                 <a href="sell.php">Vendre</a>
                 <a href="cart.php">Panier</a>

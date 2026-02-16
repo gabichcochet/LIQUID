@@ -298,7 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <header>
         <h1>🛒 LIQUID</h1>
         <nav>
-            <a href="/">Accueil</a>
+            <a href="/php_exam/index.php">Accueil</a>
             <a href="sell.php">Vendre</a>
             <a href="cart.php">Panier</a>
             <a href="account.php">Mon Compte</a>
