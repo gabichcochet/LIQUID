@@ -124,6 +124,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validation de Commande - LIQUID</title>
     <style>
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo img {
+            height: 70px;
+            width: auto;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -296,7 +305,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <header>
-        <h1>🛒 LIQUID</h1>
+        <div class="logo">
+            <img src="LIQUID-16-02-2026.png" alt="Logo LIQUID">
+        </div>
         <nav>
             <a href="/php_exam/index.php">Accueil</a>
             <a href="sell.php">Vendre</a>

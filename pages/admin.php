@@ -111,6 +111,15 @@ if ($tab === 'users') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration - LIQUID</title>
     <style>
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo img {
+            height: 70px;
+            width: auto;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -279,7 +288,9 @@ if ($tab === 'users') {
 </head>
 <body>
     <header>
-        <h1>🛒 LIQUID - Administration</h1>
+        <div class="logo">
+            <img src="LIQUID-16-02-2026.png" alt="Logo LIQUID">
+        </div>
         <nav>
             <a href="/php_exam/index.php">Accueil</a>
             <a href="account.php">Mon Compte</a>
