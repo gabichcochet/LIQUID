@@ -11,11 +11,11 @@ require_once '../includes/session.php';
 requireLogin();
 
 $user_id = $_SESSION['user_id'];
-$article_id = intval($_POST['id'] ?? $_GET['id'] ?? 0);
+$article_id = intval($_GET['id'] ?? $_POST['id'] ?? 0);
 $errors = [];
 
 if ($article_id <= 0) {
-    header("Location: /");
+    header("Location: /php_exam/index.php");
     exit;
 }
 
@@ -28,12 +28,12 @@ $article = $result->fetch_assoc();
 $stmt->close();
 
 if (!$article) {
-    header("Location: /");
+    header("Location: /php_exam/index.php");
     exit;
 }
 
 // Vérifier les permissions
-if ($article['id_auteur'] !== $user_id && $_SESSION['user_role'] !== 'admin') {
+if ((int)$article['id_auteur'] !== (int)$user_id && $_SESSION['user_role'] !== 'admin') {
     setFlash("Vous n'avez pas le droit de modifier cet article", "error");
     header("Location: detail.php?id=" . $article_id);
     exit;
@@ -65,7 +65,7 @@ if (isset($_POST['delete']) && $_POST['delete'] === 'yes') {
     $stmt->close();
 
     setFlash("Article supprimé avec succès", "success");
-    header("Location: /");
+    header("Location: /php_exam/index.php");
     exit;
 }
 
@@ -84,29 +84,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete'])) {
     if (empty($new_stock) || !is_numeric($new_stock) || $new_stock < 0) $errors[] = "Le stock doit être un nombre positif";
     if (empty($image_url)) $errors[] = "L'URL de l'image est requise";
 
-    if (empty($errors)) {
-        // Mettre à jour l'article
-        $stmt = $db->prepare("UPDATE Article SET nom = ?, description = ?, prix = ?, image_url = ? WHERE id = ?");
-        $stmt->bind_param("ssdsi", $nom, $description, $prix, $image_url, $article_id);
+if (empty($errors)) {
+    // Mettre à jour l'article
+    $stmt = $db->prepare("UPDATE Article SET nom = ?, description = ?, prix = ?, image_url = ? WHERE id = ?");
+    $stmt->bind_param("ssdsi", $nom, $description, $prix, $image_url, $article_id);
 
-        if ($stmt->execute()) {
-            $stmt->close();
-
-            // Mettre à jour le stock
-            $stmt = $db->prepare("UPDATE Stock SET quantite = ? WHERE id_article = ?");
-            $stmt->bind_param("ii", $new_stock, $article_id);
-            $stmt->execute();
-            $stmt->close();
-
-            setFlash("Article mis à jour avec succès!", "success");
-            header("Location: detail.php?id=" . $article_id);
-            exit;
-        } else {
-            $errors[] = "Erreur lors de la mise à jour de l'article";
-        }
+    if ($stmt->execute()) {
         $stmt->close();
+
+        // Mettre à jour le stock (UPDATE si existe sinon INSERT)
+        $stmt = $db->prepare("SELECT id_article FROM Stock WHERE id_article = ?");
+        $stmt->bind_param("i", $article_id);
+        $stmt->execute();
+        $exists = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+            if ($exists) {
+                $stmt = $db->prepare("UPDATE Stock SET quantite = ? WHERE id_article = ?");
+                $stmt->bind_param("ii", $new_stock, $article_id);
+                } else {
+                    $stmt = $db->prepare("INSERT INTO Stock (id_article, quantite) VALUES (?, ?)");
+                    $stmt->bind_param("ii", $article_id, $new_stock);
+                }
+                $stmt->execute();
+                $stmt->close();
+                setFlash("Article mis à jour avec succès!", "success");
+                header("Location: detail.php?id=" . $article_id);
+                exit;
+            } else {
+                $errors[] = "Erreur lors de la mise à jour de l'article";
+                $stmt->close(); // on ferme ici seulement en cas d'échec
+            }   
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -274,6 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete'])) {
         <?php endif; ?>
 
         <form method="POST">
+            <input type="hidden" name="id" value="<?php echo $article_id; ?>">
             <div class="form-group">
                 <label for="nom">Nom de l'article *</label>
                 <input type="text" id="nom" name="nom" required value="<?php echo htmlspecialchars($article['nom']); ?>">
@@ -309,6 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete'])) {
 
         <form id="delete-form" method="POST" style="display: none;">
             <input type="hidden" name="delete" value="yes">
+            <input type="hidden" name="id" value="<?php echo $article_id; ?>">
         </form>
     </div>
 </body>
