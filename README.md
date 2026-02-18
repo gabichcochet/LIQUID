@@ -19,14 +19,14 @@ Un site de e-commerce développé en **PHP pur** pour le projet final du module 
 - ✅ **Inscription** (`/register`) - Création de compte + connexion automatique
 
 ### Pages Utilisateurs
-- ⏳ **Vendre** (`/sell`) - Créer un nouvel article à vendre
-- ⏳ **Panier** (`/cart`) - Gestion du panier de l'utilisateur
-- ⏳ **Confirmation** (`/cart/validate`) - Valider la commande et générer facture
-- ⏳ **Compte** (`/account`) - Voir ses articles, ses achats et modifier ses infos
-- ⏳ **Modifier** (`/edit`) - Modifier ou supprimer un article
+- ✅ **Vendre** (`/sell`) - Créer un nouvel article à vendre
+- ✅ **Panier** (`/cart`) - Gestion du panier de l'utilisateur
+- ✅ **Confirmation** (`/cart/validate`) - Valider la commande et générer facture
+- ✅ **Compte** (`/account`) - Voir ses articles, ses achats et modifier ses infos
+- ✅ **Modifier** (`/edit`) - Modifier ou supprimer un article
 
 ### Pages Admin
-- ⏳ **Admin** (`/admin`) - Tableau de bord administrateur (gestion articles & utilisateurs)
+- ✅ **Admin** (`/admin`) - Tableau de bord administrateur (gestion articles & utilisateurs)
 
 ## 🗄️ Structure de la Base de Données
 
@@ -80,11 +80,11 @@ cd LIQUID
 
 Après importation de la base de données, vous pouvez tester avec :
 
-| Username | Email | Mot de passe | Rôle |
-|----------|-------|--------------|------|
-| admin | admin@php-exam.com | admin123 | Admin |
-| john_doe | john@example.com | user123 | User |
-| jane_smith | jane@example.com | user123 | User |
+|   Username |       Email        | Mot de passe | Rôle  |
+|------------|--------------------|--------------|-------|
+| admin      | admin@php-exam.com | admin123     | Admin |
+| john_doe   | john@example.com   | user123      | User  |
+| jane_smith | jane@example.com   | user123      | User  |
 
 **Note** : Les mots de passe sont hachés avec bcrypt. Pour générer un nouveau hash en PHP :
 ```php
@@ -146,16 +146,3 @@ Erreur de connexion à la base de données : Access denied for user 'root'@'loca
 - Cela signifie qu'il y a une session mysqli qui a été fermée
 - Vérifiez qu'il n'y a qu'une seule connexion active
 
-## 📅 Date de Rendu
-
-**Jeudi 19 février 2026 à 23h59**
-
-Seul le dernier commit avant cette date sera considéré. ✅
-
-## 📞 Support
-
-Pour toute question sur le projet ou des erreurs rencontrées, consultez le cours PHP ou contactez votre formateur.
-
----
-
-**Bon développement ! 🚀**
