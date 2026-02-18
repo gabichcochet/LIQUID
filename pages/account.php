@@ -12,7 +12,7 @@ requireLogin();
 
 // Déterminer quel utilisateur afficher
 $view_user_id = intval($_GET['user_id'] ?? $_SESSION['user_id']);
-$is_own_account = ($view_user_id === $_SESSION['user_id']);
+$is_own_account = ($view_user_id === intval($_SESSION['user_id']));
 
 // Récupérer les informations de l'utilisateur
 $stmt = $db->prepare("SELECT id, username, email, solde, role, date_creation FROM User WHERE id = ?");
@@ -23,7 +23,7 @@ $user_info = $result->fetch_assoc();
 $stmt->close();
 
 if (!$user_info) {
-    header("Location: /");
+    header("Location: /LIQUID/index.php");
     exit;
 }
 
@@ -55,20 +55,33 @@ if ($is_own_account && $_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (!empty($new_password)) {
                         $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
                         $stmt = $db->prepare("UPDATE User SET email = ?, password = ? WHERE id = ?");
-                        $stmt->bind_param("ssi", $email, $hashed_password, $view_user_id);
+                        if (!$stmt) {
+                            $errors[] = "Erreur SQL: " . $db->error;
+                        } else if (!$stmt->bind_param("ssi", $email, $hashed_password, $view_user_id)) {
+                            $errors[] = "Erreur bind: " . $stmt->error;
+                        } else if (!$stmt->execute()) {
+                            $errors[] = "Erreur exécution: " . $stmt->error;
+                        } else {
+                            $_SESSION['email'] = $email;
+                            $user_info['email'] = $email;
+                            $success_msg = "Profil mis à jour avec succès!";
+                        }
+                        if ($stmt) $stmt->close();
                     } else {
                         $stmt = $db->prepare("UPDATE User SET email = ? WHERE id = ?");
-                        $stmt->bind_param("si", $email, $view_user_id);
+                        if (!$stmt) {
+                            $errors[] = "Erreur SQL: " . $db->error;
+                        } else if (!$stmt->bind_param("si", $email, $view_user_id)) {
+                            $errors[] = "Erreur bind: " . $stmt->error;
+                        } else if (!$stmt->execute()) {
+                            $errors[] = "Erreur exécution: " . $stmt->error;
+                        } else {
+                            $_SESSION['email'] = $email;
+                            $user_info['email'] = $email;
+                            $success_msg = "Profil mis à jour avec succès!";
+                        }
+                        if ($stmt) $stmt->close();
                     }
-
-                    if ($stmt->execute()) {
-                        $_SESSION['email'] = $email;
-                        $user_info['email'] = $email;
-                        $success_msg = "Profil mis à jour avec succès!";
-                    } else {
-                        $errors[] = "Erreur lors de la mise à jour";
-                    }
-                    $stmt->close();
                 }
             }
         } elseif ($_POST['action'] === 'add_funds') {
@@ -79,16 +92,18 @@ if ($is_own_account && $_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $new_solde = $user_info['solde'] + $amount;
                 $stmt = $db->prepare("UPDATE User SET solde = ? WHERE id = ?");
-                $stmt->bind_param("di", $new_solde, $view_user_id);
-
-                if ($stmt->execute()) {
+                if (!$stmt) {
+                    $errors[] = "Erreur SQL: " . $db->error;
+                } else if (!$stmt->bind_param("di", $new_solde, $view_user_id)) {
+                    $errors[] = "Erreur bind: " . $stmt->error;
+                } else if (!$stmt->execute()) {
+                    $errors[] = "Erreur exécution: " . $stmt->error;
+                } else {
                     $_SESSION['solde'] = $new_solde;
                     $user_info['solde'] = $new_solde;
                     $success_msg = "Fonds ajoutés avec succès! Nouveau solde: " . number_format($new_solde, 2) . "€";
-                } else {
-                    $errors[] = "Erreur lors de l'ajout de fonds";
                 }
-                $stmt->close();
+                if ($stmt) $stmt->close();
             }
         }
     }
@@ -438,9 +453,8 @@ if ($is_own_account) {
                 </div>
             </div>
         </div>
-
         <!-- Modification de Profil (uniquement pour le compte personnel) -->
-        <?php if ($is_own_account): ?>
+        <?php if ($_SESSION['user_id'] == $user_info['id']): ?>
             <div class="form-section">
                 <h2>Modifier mon Profil</h2>
                 <form method="POST">

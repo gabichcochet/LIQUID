@@ -231,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <button type="submit">Créer l'article</button>
-            <a href="/" style="margin-left: 10px;">Retour</a>
+            <a href="/LIQUID/index.php" style="margin-left: 10px;">Retour</a>
         </form>
     </div>
 </body>

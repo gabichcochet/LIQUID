@@ -257,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
     </header>
 
     <div class="container">
-        <a href="/">← Retour aux articles</a>
+        <a href="/LIQUID/index.php">← Retour aux articles</a>
 
         <?php if ($error): ?>
             <div class="error">❌ <?php echo $error; ?></div>
@@ -283,11 +283,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
                     <p><?php echo nl2br(htmlspecialchars($article['description'])); ?></p>
                 </div>
 
-                <?php if (isLoggedIn() && $_SESSION['user_id'] == $article['id_auteur']): ?>
-                    <form method="POST" action="edit.php" style="margin: 20px 0;">
-                        <input type="hidden" name="id" value="<?php echo $article['id']; ?>">
-                        <button type="submit" class="edit-btn">✏️ Modifier cet article</button>
-                    </form>
+                <?php if (isLoggedIn() && (int)$_SESSION['user_id'] == (int)$article['id_auteur']): ?>
+                    <nav>
+                        <a href="edit.php?id=<?php echo (int)$article['id']; ?>" class="edit-btn">✏️ Modifier l'article</a>
+                    </nav>
                 <?php endif; ?>
 
                 <?php if ($article['stock_disponible'] > 0): ?>
