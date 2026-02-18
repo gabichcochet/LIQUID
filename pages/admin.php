@@ -289,10 +289,10 @@ if ($tab === 'users') {
 <body>
     <header>
         <div class="logo">
-            <img src="LIQUID-16-02-2026.png" alt="Logo LIQUID">
+            <img src="\LIQUID\src\LIQUID-16-02-2026.png" alt="Logo LIQUID">
         </div>
         <nav>
-            <a href="/php_exam/index.php">Accueil</a>
+            <a href="/LIQUID/index.php">Accueil</a>
             <a href="account.php">Mon Compte</a>
             <a href="logout.php">Déconnexion</a>
         </nav>

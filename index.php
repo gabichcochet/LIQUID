@@ -129,21 +129,21 @@ require_once 'includes/session.php';
 <body>
     <header>
         <div class="logo">
-            <img src="LIQUID-16-02-2026.png" alt="Logo LIQUID">
+            <img src="\LIQUID\src\LIQUID-16-02-2026.png" alt="Logo LIQUID">
         </div>
         <nav>
-            <a href="/php_exam/index.php">Accueil</a>
+            <a href="/LIQUID/index.php">Accueil</a>
             <?php if (isLoggedIn()): ?>
-                <a href="/php_exam/pages/sell.php">Vendre</a>
-                <a href="/php_exam/pages/cart.php">Panier</a>
-                <a href="/php_exam/pages/account.php">Mon Compte</a>
+                <a href="/LIQUID/pages/sell.php">Vendre</a>
+                <a href="/LIQUID/pages/cart.php">Panier</a>
+                <a href="/LIQUID/pages/account.php">Mon Compte</a>
                 <?php if ($_SESSION['user_role'] === 'admin'): ?>
-                    <a href="/php_exam/pages/admin.php">Admin</a>
+                    <a href="/LIQUID/pages/admin.php">Admin</a>
                 <?php endif; ?>
-                <a href="/php_exam/pages/logout.php">Déconnexion</a>
+                <a href="/LIQUID/pages/logout.php">Déconnexion</a>
             <?php else: ?>
-                <a href="/php_exam/pages/login.php">Connexion</a>
-                <a href="/php_exam/pages/register.php">Inscription</a>
+                <a href="/LIQUID/pages/login.php">Connexion</a>
+                <a href="/LIQUID/pages/register.php">Inscription</a>
             <?php endif; ?>
         </nav>
     </header>
@@ -182,7 +182,7 @@ require_once 'includes/session.php';
                         <p style="color: #999; font-size: 12px;">Par: <?php echo htmlspecialchars($article['username']); ?></p>
                         <div class="product-price"><?php echo number_format($article['prix'], 2); ?>€</div>
                         <p style="color: #27ae60; font-weight: bold;">Stock: <?php echo $article['stock_disponible']; ?></p>
-                        <a href="/php_exam/pages/detail.php?id=<?php echo $article['id']; ?>">Voir Détails</a>
+                        <a href="/LIQUID/pages/detail.php?id=<?php echo $article['id']; ?>">Voir Détails</a>
                     </div>
                 <?php endwhile; ?>
             </div>

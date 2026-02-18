@@ -18,7 +18,7 @@ function isLoggedIn() {
  */
 function requireLogin() {
     if (!isLoggedIn()) {
-        header("Location: /php_exam/pages/login.php");
+        header("Location: /LIQUID/pages/login.php");
         exit;
     }
 }
@@ -29,7 +29,7 @@ function requireLogin() {
 function requireAdmin() {
     requireLogin();
     if ($_SESSION['user_role'] !== 'admin') {
-        header("Location: /php_exam/index.php");
+        header("Location: /LIQUID/index.php");
         exit;
     }
 }
@@ -55,7 +55,7 @@ function getCurrentUser() {
  */
 function logout() {
     session_destroy();
-    header("Location: /php_exam/index.php");
+    header("Location: /LIQUID/index.php");
     exit;
 }
 

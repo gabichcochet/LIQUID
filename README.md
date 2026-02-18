@@ -68,13 +68,13 @@ mysql -u root -p < LIQUID.sql
 ### 4. Cloner le projet
 ```bash
 cd C:\xampp\htdocs
-git clone <votre-repo> php_exam
-cd php_exam
+git clone <votre-repo> LIQUID
+cd LIQUID
 ```
 
 ### 5. Accéder au site
 - Ouvrez votre navigateur
-- Allez sur : `http://localhost/php_exam`
+- Allez sur : `http://localhost/LIQUID`
 
 ## 👥 Utilisateurs de Test
 
@@ -94,7 +94,7 @@ echo password_hash("votre_password", PASSWORD_BCRYPT);
 ## 📁 Structure du Projet
 
 ```
-php_exam/
+LIQUID/
 ├── config/
 │   └── database.php          # Configuration et connexion DB
 ├── includes/
@@ -140,7 +140,7 @@ Erreur de connexion à la base de données : Access denied for user 'root'@'loca
 
 ### Les pages ne se chargent pas
 - Vérifiez que Apache est démarré (XAMPP Control Panel)
-- Vérifiez l'URL : `http://localhost/php_exam` (pas `localhost:8888` sauf sur MAMP)
+- Vérifiez l'URL : `http://localhost/LIQUID` (pas `localhost:8888` sauf sur MAMP)
 
 ### "Cannot access User object after it has been closed"
 - Cela signifie qu'il y a une session mysqli qui a été fermée

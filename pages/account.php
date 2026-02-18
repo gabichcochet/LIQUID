@@ -381,10 +381,10 @@ if ($is_own_account) {
 <body>
     <header>
         <div class="logo">
-            <img src="LIQUID-16-02-2026.png" alt="Logo LIQUID">
+            <img src="\LIQUID\src\LIQUID-16-02-2026.png" alt="Logo LIQUID">
         </div>
         <nav>
-            <a href="/php_exam/index.php">Accueil</a>
+            <a href="/LIQUID/index.php">Accueil</a>
             <?php if (isLoggedIn()): ?>
                 <a href="sell.php">Vendre</a>
                 <a href="cart.php">Panier</a>
