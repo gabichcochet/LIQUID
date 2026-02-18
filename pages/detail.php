@@ -257,7 +257,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isLoggedIn()) {
     </header>
 
     <div class="container">
-        <a href="/">← Retour aux articles</a>
+        <a href="/php_exam/index.php">← Retour aux articles</a>
 
         <?php if ($error): ?>
             <div class="error">❌ <?php echo $error; ?></div>

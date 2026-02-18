@@ -389,7 +389,7 @@ $stmt->close();
             <div class="empty-message">
                 <h2>Votre panier est vide</h2>
                 <p style="margin: 20px 0;">Découvrez nos articles en vente</p>
-                <a href="/">← Retour aux articles</a>
+                <a href="/php_exam/index.php">← Retour aux articles</a>
             </div>
         <?php endif; ?>
     </div>
