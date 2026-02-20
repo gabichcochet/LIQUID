@@ -8,7 +8,10 @@
 require_once '../config/database.php';
 require_once '../includes/session.php';
 
-requireAdmin();
+if ($_SESSION['user_role'] !== 'admin') {
+    header("Location: /LIQUID/index.php");
+    exit;
+}
 
 $user_id = $_SESSION['user_id'];
 $errors = [];
