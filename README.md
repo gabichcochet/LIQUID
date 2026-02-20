@@ -76,21 +76,6 @@ cd LIQUID
 - Ouvrez votre navigateur
 - Allez sur : `http://localhost/LIQUID`
 
-## 👥 Utilisateurs de Test
-
-Après importation de la base de données, vous pouvez tester avec :
-
-|   Username |       Email        | Mot de passe | Rôle  |
-|------------|--------------------|--------------|-------|
-| admin      | admin@php-exam.com | admin123     | Admin |
-| john_doe   | john@example.com   | user123      | User  |
-| jane_smith | jane@example.com   | user123      | User  |
-
-**Note** : Les mots de passe sont hachés avec bcrypt. Pour générer un nouveau hash en PHP :
-```php
-echo password_hash("votre_password", PASSWORD_BCRYPT);
-```
-
 ## 📁 Structure du Projet
 
 ```
